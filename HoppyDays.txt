@@ -1,0 +1,420 @@
+Hoppy Days:
+
+Slides 1-5 Hva vi skal lage
+
+Last ned Assets:
+https://goo.gl/GfdSFC
+
+Direkte link:
+https://drive.google.com/open?id=1smQfgr48nfEeGSaDkbG-TEVFyGJ_48Ch
+
+Pakk ut fra Nedlastinger
+Marker alt og Kopier
+Ctrl-A og Ctrl-C
+
+Lag nytt prosjekt i Godot:
+Velg Mappe (C:\koding\godot)
+Hoppy Days som prosjektnavn
+Lag Mappe
+Create and Edit
+
+Nyttige shortcuts:
+Ctrl-C Kopier
+Ctrl-V Lim inn
+Ctrl-S Lagre
+Ctrl-D Lag Kopi
+Ctrl-Z Angre
+
+Høyre-klikk i Filer-området
+velg Vis i Filutforsker
+Ctrl-V for å lime inn Assets
+Klikk tilbake til Godot
+(Assets importeres automatisk)
+
+Slide 9
+
+Fix 2 lydfiler:
+dobbelt-klikk på SFX mappa
+klikk på jump1.ogg
+klikk på importer flipp
+fjern loop flagg
+klikk Reimporter
+klikk på pain.ogg
+fjern loop flagg
+klikk på Reimporter
+
+klikk på scene tabben
+
+Kort forklaring av Godot's GUI
+
+Lage en spiller karakter:
++ phys
+Røde noder er for 3D
+Lyseblå noder er for 2D
+
+Slides 10-16
+
+Velg KinematicBody2D
+Rename til Player
++ Sprite
+Bunny2_stand til Texture
+Klikk Player
++ CollisonShape2D
+velg Shape "new CapsuleShape2D"
+Juster størrelse og posisjon
+Husk å bruke de innerste punktene
+(ikke bruk de ytterste!)
+Radius = 60
+Height = 32
+Passer bra
+Pass på at kollisjonsområdet går til beina
+klikk bort øyet for kollisjonsområdet
+
+klikk Player
+klikk ikonet for å ikke velge objektets barn
+Viktig for alle figurer vi skal lage!
+
+Lag en mappe for skripts:
+Klikk res:// i FilSystem vinduet
+Høyreklikk i Filområdet og velg "Ny mappe"
+Skriv Scripts - Lag
+
+Lage et skript for Player:
+Klikk så Player er valgt
+Klikk Skript ikonet
+Klikk mappe-ikonet etter Søkesti
+dobbeltklikk på Scripts-mappa
+Lagre knappen
+Velg Template "No Comments"
+Lag knappen
+
+Fjern _ready() funksjonen
+
+var motion = Vector2()
+
+func _physics_process(delta):
+		if Input.is_action_pressed("ui_right"):
+				pass
+				
+Hold musepeker over funksjon + Ctrl-C
+gir dokumentasjonen 
+(høyreklikk lukk for å lukke et vindu)
+
+For å sette Input actions:
+Gå til Prosjektinnstillinger
+Input map tabben
+Finn ui_right og ui_left
+Legge til bruk av taster:
+legg til Key A for ui_left
+legg til Key D for ui_right
+legg til Key Space for ui_up
+
+Lukk knappen
+
+Legg til så koden blir:
+
+const SPEED = 750
+
+var motion = Vector2()
+
+func _physics_process(delta):
+	if Input.is_action_pressed("ui_right"):
+		motion.x = SPEED
+	elif Input.is_action_pressed("ui_left"):
+		motion.x = -SPEED
+	else:
+		motion.x = 0
+	move_and_slide(motion)
+
+Slides 17-18
+
+For å lagre Scenen:
+Ctrl-S
+Dobbeltklikk på Scenes mappa for å velge den
+Lagre knappen
+
+HIT - 1.gang
+
+Spill Scenen - Flytt spilleren - Spill scenen
+Forklar høyre-og-venste feilen
+
+Utfordring: 
+høyre og venstre samtidig skal ikke flytte bunny
+
+Vente 5 minutter ...
+
+Legg inn løsningen
+
+AnimatedSprite
+
+Slett Sprite
+Legg til AnimatedSprite
+legg til animasjoner:
+rename default til idle
+legg inn bunny2_stand og bunny2_ready
+Speed f.eks. 3
+ny animasjon: run
+legg inn bunny2_walk1 og bunny2_walk2
+Speed f.eks. 7
+ny animasjon jump
+legg inn bunny2_jump
+ny animasjon hurt
+legg inn bunny2_hurt
+
+Gå til skriptet og legg til
+$AnimatedSprite.play("run")
+$AnimatedSprite.play("run")
+og
+$AnimatedSprite.play("idle")
+
+Test Spillet
+
+Forklar egenskapene til AnimatedSprite
+
+Utfordring:
+Fix feilen Bunny moonwalker mot venstre
+
+Vente 5 minutter ...
+(hint: flip_h)
+
+Legg inn løsningen
+
+Hopping - hva trenger vi?:
+- en scene å hoppe i
+- noe å hoppe på
+- definere gravitasjon (KinematicBody2D påvirkes ikke)
+- definere JUMP_SPEED
+
+Ny scene
++ Node2D
+rename til Level1
+Ctrl-S lagre i Scenes\Levels mappa
+Lenke inn Player scenen
+
+Åpne Player scenen
+Flytt Player til 0,0 posisjon
+Gå tilbake til Level1 scenen
+Forklare zoom og flytting i scenen
+
+HIT - 2.gang
+
+Flyttet animasjoner til nytt skript
+Lagt til rette i Player skriptet
+Laget ny scene Platforms, 
+ - plattformer med kollisjons-soner
+
+START - 3.gang
+
+Last ned zip-fil fra github
+vis fil i mappen
+(husk hvilket nr filen har, f.eks. HoppyDays-master(2))
+høyre-klikk på filen
+pakk ut alle
+Åpne Godot, trykk Scann-knappen
+bla til mappen der du pakket ut zip-filen
+velg mappen HoppyDays-master under denne mappen.
+
+Åpne det nye prosjektet i Godot
+(Marker riktig prosjekt + Rediger-knappen)
+
+	Sjekk at Level1 er hovedscene:
+	Prosjektinnstillinger
+	Run - Sett Main Scene til Level1 
+	(klikk på mappe-ikonet og bla til Scenes/Level1.tscn)
+
+	Sjekk navn på kollisjonslagene:
+	Prosjektinnstillinger
+	Layer Names - 2d Physics
+	Layer 1 -> Player
+	Layer 2 -> Terrain
+
+La spillet bruke et større vindu
+Prosjektinnstillinger - Window
+width = 1920
+Height = 1080
+Lukk knappen
+
+La oss legge til noe som Bunny kan hoppe på
+og lære litt om Flissett:
+
+Åpne Platforms scenen (Scenes/Platforms.tscn)
+Menyen - Scene - Konverter Til - Flissett...
+Gå til Scenes mappa (dobbeltklikk på Scenes mappa)
+Skriv "PlatformTiles.tres" som filnavn
+Trykk på Lagre-knappen
+
+Åpne Level1 scenen:
+Aktiver Level1
++ TileMap
+Bla til Scenes mappa
+Dra PlatformTiles.tres til <null> til høyre for "Tile Set"
+Du har nå fått platformer med kollisjonssoner
+som du kan lage et level med, legg ut noen plattformer
+Hvis du vil slette en:
+- pek på øverste venstre hjørne og høyre-klikk
+
+La oss legge til gravitasjon!
+
+Forklar Godot's koordinat system:
+Fra Topp-Venstre posisjon
+(ikke Bunn-Venstre som er vanlig)
+
+positiv y verdi er nedover
+negativ y verdi er oppover
+
+Åpne Player scenen - åpne skriptet
+
+endre fall funksjonen:
+
+func fall(delta):
+	if is_on_floor():
+		motion.y = 0
+	else:
+		motion.y += GRAVITY * delta
+
+Test spillet, faller Bunny?
+
+La oss hoppe!
+
+endre jump funksjonen:
+
+func jump():
+	if is_on_floor() and Input.is_action_pressed("ui_up"):
+		motion.y = JUMP_SPEED
+
+Test Spillet - Kan Bunny hoppe?
+
+La oss lage et kamera som kan følge Bunny!
+
+Lag en ny scene
++ node Camera2D
+Viktig:
+Finn egenskapen "Current" i inspektøren
+og klikk i firkanten så den blir aktiv (huke)
+Lagre Scenen
+
+Åpne Level1 scenen
+Aktiver Player noden
+Klikk på lenke-ikonet for å koble til kamera-scenen
+Bla til Scenes-mappa og velg Camera2D scenen
+
+Test Spillet - Følger kameraet Bunny?
+Gå tilbake til Godot
+
+Aktiver Camera2D noden
+Aktiver - Smoothing - Enabled
+
+Test Spillet - Er det mindre hakkete nå?
+Gå tilbake til Godot
+
+Aktiver Camera2D noden
+Endre Zoom til 1.5 i x og y
+Test spillet - er det passe størrelse på ting?
+endre Zoom verdiene til du er fornøyd
+
+Sett limits på kamera så det ikke følger langt utenfor nivået
+f.eks:
+Left: 320     (se små tall øverst, hvis du bygger mot høyre)
+Bottom: 3000
+
+
+Utfordring:
+Lag et super-kult nivå som er passe vanskelig!
+Klikk på TileMap i Level1 scenen og plasser plattformer
+Tips:
+ - test spillet ofte 
+ - se at det er mulig å hoppe
+ - høyre klikk for å slette en plattform
+
+Lykke til!
+
+Ekstra - Lag en "Game Over" scene
+
+Lag en ny scene
++ node Control
+rename til GameOver
+klikk på Layout ikonet
+velg "Full Rect" så den bruker hele vinduet
++ node TextureRect
+gå til Background mappa
+dra bg_layer1.png til Texture området
+Aktiver Expand egenskapen
+Velg Layout - "Full Rect"
+
+Aktiver GameOver noden
++ node CenterContainer
+Velg Layout - "Full Rect"
+Aktiver CenterContainer
++ node Label
+endre Min Size til
+X: 400 Y:200
+Skriv "Game Over" i Text egenskapen
+Gå til Custom Colors sett til svart
+Gå til Custom fonts
+velg "new Dynamic Font"
+klikk på fonten
+klikk Font
+Gå til fonts-mappa
+dra candles_ttf til Font Data
+forandre Size til 180
+Aktiver GameOver noden
++ node TextureButton
+Gå til HUD mappa
+dra Bunny bildet over til
+Textures - Normal området
+Flytt knappen under teksten
+Forandre størrelsen til det dobbelte
+aktiver "Expand" egenskapen
+Legg til en ny Label under TextureButton
+legg til new DynamicFont som før
+Dra over candles fonten
+sett size til 80
+Flytt på label så det ser pent ut
+Ctrl-S for å lagre scenen
+(putt i scenes-mappa)
+
+Gå til PLayer skriptet
+legg til:
+export var world_limit = 3000
+
+legg til i fall() funksjonen:
+	if position.y > world_limit:
+		end_game()
+		
+lag en ny funksjon:
+func end_game():
+	get_tree().change_scene("")
+
+gå til scenes mappa,
+finn GameOver.tscn
+høyre-klikk
+velg "kopier sti"
+
+lim inn mellom "" i koden.
+
+Test spillet - får du game over hvis du faller langt ned?
+
+For å komme tilbake til spillet fra gameover
+Åpne GameOver scenen
+Aktiver GameOver noden
+Legg til nytt skript
+template "no comments"
+velg scripts-mappa
+Lag-knappen
+Aktiver Node-tabben
+Velg pressed()
+klikk Koble-Til knappen
+Velg GameOver noden
+
+legg til koden:
+get_tree().change_scene("")
+
+gå til scenes mappa,
+finn Level1.tscn
+høyre-klikk
+velg "kopier sti"
+
+lim inn mellom "" i koden.
+
+Test Spillet 
+- Kan du start spillet på nytt?
