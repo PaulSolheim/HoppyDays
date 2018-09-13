@@ -23,7 +23,10 @@ func update_animation(motion):
 	$AnimatedSprite.update(motion)
 
 func fall(delta):
-	pass
+	if is_on_floor():
+		motion.y = 0
+	else:
+		motion.y += GRAVITY * delta
 
 func run():
 	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
@@ -34,4 +37,5 @@ func run():
 		motion.x = 0
 
 func jump():
-	pass
+	if is_on_floor() and Input.is_action_pressed("ui_up"):
+		motion.y = JUMP_SPEED

@@ -328,6 +328,8 @@ Tips:
 
 Lykke til!
 
+HIT 3. Gang
+
 Ekstra - Lag en "Game Over" scene
 
 Lag en ny scene
