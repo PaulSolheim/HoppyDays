@@ -330,7 +330,10 @@ Lykke til!
 
 HIT 3. Gang
 
-Ekstra - Lag en "Game Over" scene
+Jeg har laget en ParallaxBackground scene siden sist.
+Åpne den og gi en kort forklaring.
+
+La oss lage en "Game Over" scene
 
 Lag en ny scene
 + node Control
@@ -420,3 +423,18 @@ lim inn mellom "" i koden.
 
 Test Spillet 
 - Kan du start spillet på nytt?
+
+Jeg har laget 2 nye scener som heter SpikesTop og SpikesBottom.
+Åpne en og gi en kort forklaring.
+
+Nå er det tid for å lage et kult nivå, 
+slett gjerne alle mine kakestykker og lag noe kult.
+
+Plasser noen Spikes i scenen din,
+Tips 1: Du kan legge dem under Spikes noden i scenen så det blir ryddig.
+Tips 2: Når du har plassert en Spike kan du bruke Ctrl-D og flytte kopien.
+test at det skrives "Ouch!" i konsollet når du kommer borti en Spike.
+
+Planlagt å komme hit 4.Gang
+
+
