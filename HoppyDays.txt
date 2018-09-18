@@ -437,4 +437,132 @@ test at det skrives "Ouch!" i konsollet når du kommer borti en Spike.
 
 Planlagt å komme hit 4.Gang
 
+Jeg har jukset litt og laget en Scene som heter GUI.tscn
+denne skal vise hvor mange mynter og liv vi har i spillet.
+La oss legge den til på kameraet:
+
+Åpne Camera2D scenen.
+Klikk på Lenke ikonet, finn GUI scenen og velg denne.
+
+Test spillet - Sjekk at du har fått et banner oppe i høyre hjørnet.
+
+La oss lage et skript for å holde orden på spillets "tilstand":
+"Et skript skal ha ansvar for en ting"
+Dette skriptet skal ha ansvar for å kjøre spillet, dvs.:
+	Hvor mange liv og mynter starter vi med?
+	Hva skal skje når vi mister et liv?
+	Hva skal skje når vi får en ny mynt?
+
+Siden vi lager et spill med bare en scene kan vi legge skriptet rett på Level1.
+
+Åpne Level1 scenen
+Klikk på Skript-ikonet
+Velg Scripts-mappa
+Kall Skriptet: "GameState.gd"
+Klikk Lag knappen
+
+La oss flytte end_game() funksjonen fra Player skriptet til GameState.
+
+Åpne Player skriptet
+Klipp ut end_game() funksjonen (begge linjene)
+
+Gå til GameState skriptet
+Lim inn end_game() funksjonen
+
+Gå til Player skriptet
+Gå til fall() funksjonen
+endre linjen:
+	end_game()
+til
+	get_parent().end_game()
+
+Test Spillet og sjekk at du får "GameOver" hvis du dør.
+
+La oss lage et "Globalt skript" så det blir enklere å kalle funksjoner
+på andre noder uten å bruke navnet på stien til noden.
+Koden vår blir lettere å lese og mer robust 
+dvs. vi kan endre på plassering og navn på noder uten å endre koden
+
+La oss lage et nytt skript uten å knytte det til noen node:
+Gå til Skript tabben
+Velg menyen fil - Ny
+Gå til Scripts mappa
+Gi Skriptet filnavnet: Global.gd
+Trykk på Lag-knappen
+
+La oss sørge for at dette skriptet alltid blir kjørt når vi starter spillet.
+Gå til Prosjektinnstillinger
+Klikk på ".." knappen og finn "Global.gd" under scripts mappa
+Klikk på "Legg til" knappen
+Sjekk at "Singleton enabled" er huket av for skriptet
+Dette sørger for at bare en "kopi" av skriptet blir kjørt.
+Klikk "Lukk" knappen
+
+Legg inn denne koden:
+
+var GameState
+
+Ctrl-S for å lagre
+
+Åpne GameState skriptet og legg til:
+
+func _ready():
+	Global.GameState = self
+
+Nå vil Global.GameState variabelen
+alltid peke på GameState skriptet
+uansett hvilken scene som er aktiv.
+
+Gå til Global skriptet
+La oss legge til en for Player:
+
+var Player
+
+Ctrl-S for å lagre
+
+Åpne Player skriptet og legg til:
+
+func _ready():
+	Global.Player = self
+
+Nå vil Global.Player variabelen
+alltid peke på Player skriptet
+uansett hvilken scene som er aktiv
+og uansett hvor Player befinner seg
+i hierarkiet i scenen.
+
+Gå til Player skriptet
+Gå til fall() funksjonen
+endre linjen:
+	get_parent().end_game()
+til
+	Global.GameState.end_game()
+
+Gå til Global skriptet
+La oss legge til en for GUI:
+
+var GUI
+
+Ctrl-S for å lagre
+
+Åpne GUI skriptet:
+
+endre
+func ready():
+	pass
+	
+til
+
+func _ready():
+	Global.GUI = self
+
+Nå er spillet vårt mer robust og enklere å utvide.
+
+Hvis du vil ha flere scener i spillet
+så bør du flytte GameState skriptet ut av Level1
+og gjøre det til en "Singleton" på samme måten som Global skriptet.
+Da kan du "dra med deg" antall liv og mynter
+fra scene til scene.
+
+La oss legge til Liv!
 
