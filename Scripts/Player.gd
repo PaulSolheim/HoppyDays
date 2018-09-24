@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export var world_limit = 3000
+
 const SPEED = 750
 const GRAVITY = 3600
 const JUMP_SPEED = -1800
@@ -27,6 +29,11 @@ func fall(delta):
 		motion.y = 0
 	else:
 		motion.y += GRAVITY * delta
+	if position.y > world_limit:
+		end_game()
+		
+func end_game():
+	get_tree().change_scene("res://Scenes/GameOver.tscn")
 
 func run():
 	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):

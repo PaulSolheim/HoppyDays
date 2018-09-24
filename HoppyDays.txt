@@ -435,7 +435,7 @@ Tips 1: Du kan legge dem under Spikes noden i scenen så det blir ryddig.
 Tips 2: Når du har plassert en Spike kan du bruke Ctrl-D og flytte kopien.
 test at det skrives "Ouch!" i konsollet når du kommer borti en Spike.
 
-Planlagt å komme hit 4.Gang
+5. Gang
 
 Jeg har jukset litt og laget en Scene som heter GUI.tscn
 denne skal vise hvor mange mynter og liv vi har i spillet.
