@@ -566,3 +566,138 @@ fra scene til scene.
 
 La oss legge til Liv!
 
+Åpne GameState skriptet og legg til:
+
+export var starting_lives = 3
+var lives
+
+func _ready():
+	...
+	lives = starting_lives
+	
+ny funksjon:
+
+func hurt():
+	lives -= 1
+	if lives < 0:
+		end_game()
+		
+La oss gi nytt navn til SpikesTop skriptet:
+gå til Scripts mappa i FilSystem
+høyreklikk på SpikesTop.gd
+velg "Endre Navn"
+Skriv Hazards
+Trykk på "Endre Navn" knappen
+
+Åpne Hazards skriptet
+
+Endre:
+	print("ouch")
+Til:
+	Global.GameState.hurt()
+
+Siden skriptet nå heter Hazards
+og skal brukes for alle enemies
+er det ikke lenger logisk at
+funksjonen heter _on_SpikesTop_body_entered(body)
+
+La oss endre navnet, da må vi først
+koble fra noden i SpikesTop scenen.
+
+Åpne SpikesTop scenen i Scenes mappa
+Gå til Node tabben (nede til høyre)
+velg linja med Grønt ikon foran (_on_SpikesTop...)
+Trykk "Koble Fra" - Koble fra
+Da skal vi koble til en ny funksjon med annet navn:
+Trykk "Koble Til" - Skriv "_onbody_entered" som navn på funksjonen - Koble Til
+Flytt linja med:
+	Global.GameState.hurt()
+Ned til den nye funksjonen
+og fjern linja med "pass"
+
+Da kan vi slette den gamle funksjonen
+Slett _on_SpikesTop_body_entered(body): linja
+
+Test spillet - Får du GameOver hvis du kolliderer med
+SpikesTop 3 ganger?
+
+(
+	La oss fikse SpikesBottom også:
+	Åpne SpikesBottom scenen
+	Høyreklikk på øverste node i scenen
+	Trykk på Node tabben
+	Velg linjen med det grønne ikonet
+	Klikk "Koble Fra"
+	Høyreklikk på øverste node i scenen
+	Velg "Clear Script"
+	Høyreklikk på noden pånytt
+	Velg "Attach Script"
+	Finn Hazards skriptet og velg det.
+	Trykk på Node tabben
+	Velg linjen med "body_entered"
+	Klikk "Koble Til"
+	Velg funksjonen "_onbody_entered"
+	Trykk på "Koble Til" knappen
+)
+
+La oss få Bunny til å hoppe hver gang han mister et liv:
+
+Åpne Player skriptet:
+Lag en ny funksjon
+
+func hurt():
+	motion.y = JUMP_SPEED
+
+Åpne GameState skriptet
+legg til en ny linje i hurt() funksjonen
+så den blir:
+
+func hurt():
+	lives -= 1
+	Global.Player.hurt()
+	if lives < 0:
+		end_game()
+
+Test spillet:
+	Hopper Bunny i lufta hver gang 
+	hun kommer borti en Spike?
+
+La oss oppdatere GUI så vi kan se hvor mange liv
+vi har igjen.
+
+Åpne GUI scenen
+Gå til skriptet
+
+Lag en ny funksjon i skriptet:
+
+func update_GUI(lives):
+	$Banner/HBoxContainer/LifeCount.text = str(lives)
+
+Åpne GameState skriptet
+Lag en ny funksjon:
+
+func update_GUI():
+	Global.GUI.update_GUI(lives)
+
+Legg til et kall til funksjonen når vi
+starter spillet dvs. i _ready() funksjonen:
+
+func _ready():
+	...
+	update_GUI()
+
+Legg til et kall til funksjonen hver gang
+du mister et liv, dvs. i hurt() funksjonen:
+
+func hurt():
+	lives -= 1
+	update_GUI()
+	...
+	
+Test Spillet:
+	Kan du se hvor mange liv du har igjen?
+	Fiks Level1 så spillet blir enda kulere!
+	
+Nå kan vi lage animerte mynter så vi kan få ekstra liv!
+Så skal vi lage "Jump Pad" som får Bunny til å hoppe ekstra høyt.
+Deretter "Spikeman" som patruljerer og Bunny bør unngå.
