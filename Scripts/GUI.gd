@@ -1,4 +1,4 @@
 extends CanvasLayer
 
 func _ready():
-	pass
+	Global.GUI = self

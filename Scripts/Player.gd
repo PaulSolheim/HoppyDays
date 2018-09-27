@@ -9,6 +9,9 @@ const UP = Vector2(0,-1)
 
 var motion = Vector2()
 
+func _ready():
+	Global.Player = self
+	
 func _physics_process(delta):
 	update_motion(delta)
 
@@ -30,10 +33,8 @@ func fall(delta):
 	else:
 		motion.y += GRAVITY * delta
 	if position.y > world_limit:
-		end_game()
+		Global.GameState.end_game()
 		
-func end_game():
-	get_tree().change_scene("res://Scenes/GameOver.tscn")
 
 func run():
 	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
@@ -46,3 +47,7 @@ func run():
 func jump():
 	if is_on_floor() and Input.is_action_pressed("ui_up"):
 		motion.y = JUMP_SPEED
+
+func hurt():
+	motion.y = JUMP_SPEED
+	

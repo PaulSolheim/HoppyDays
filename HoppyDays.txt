@@ -662,6 +662,8 @@ Test spillet:
 	Hopper Bunny i lufta hver gang 
 	hun kommer borti en Spike?
 
+HIT 5. Gang
+
 La oss oppdatere GUI så vi kan se hvor mange liv
 vi har igjen.
 
@@ -699,5 +701,102 @@ Test Spillet:
 	Fiks Level1 så spillet blir enda kulere!
 	
 Nå kan vi lage animerte mynter så vi kan få ekstra liv!
+Vi skal også legge inn lyder og bakgrunnsmusikk i spillet.
 Så skal vi lage "Jump Pad" som får Bunny til å hoppe ekstra høyt.
 Deretter "Spikeman" som patruljerer og Bunny bør unngå.
+
+La oss lage animerte mynter!
+
+Lag en ny scene
+Legg til en ny node (+)
+skriv "anim" så AnimatedSprite blir valgt, trykk lag knappen
+Legg til SpriteFrames ved å:
+klikk på <null> ved siden av Frames,
+velg "New SpriteFrames" og klikk på den.
+Da skal du ha fått frem Animations vinduet.
+Gå til mappa GFX/Items,
+velg alle 4 myntene og dra dem inn i animasjonen.
+Skru på animasjonen så du ser den.
+For å fikse "snapping":
+Legg til bronze_3 og bronze_2 på slutten.
+
+Juster hastigheten (FPS) til noe du liker.
+Skru av animasjonen.
+
+La oss legge til kollisjonssone:
++ node Area2D under AnimatedSprite
++ node CollisionShape2D under den igjen
+Velg CircleShape2D som Shape i inspektøren
+Juster størrelsen (dra i de innerste prikkene)
+
+Velg AnimatedSprite i hierarkiet,
+Klikk ikonet for "vær sikker på at objektets barn ikke er valgbare"
+Gjør så kollisjonsområdet ikke vises.
+
+Gå til Prosjektinnstillinger
+gå til Lag / 2d physics
+gi layer 4 navnet "Pickups"
+Trykk Lukk knappen
+
+Aktiver Area2D noden i hierarkiet
+Gå til Collisions
+Sett Layer til Pickups (fjern Player)
+(tror ikke det er nødvendig å sette 
+også på Player at mask skal inkl. Pickups,
+men det kan ikke skade)
+
+Rename AnimatedSprite til Coin
+Lag et nytt skript for Coin
+Velg at det skal være i Scripts mappa
+Fjern _ready() funksjonen
+
+Klikk 2D for å få frem scenen
+Ctrl-S for å lagre, husk å legge scenen i scenes mappa.
+
+Velg Area2D noden
+i Node tabben, velg body_entered
+trykk "Koble Til" knappen
+Velg Coin og trykk "Koble til" knappen
+
+I funksjonen som ble laget:
+fjern pass
+legg til:
+	Global.GameState.coin_up()
+	
+La oss lage denne funksjonen:
+Åpne GameState skriptet
+Lag en ny funksjon:
+
+func coin_up():
+	coins += 1
+	print(coins)
+	
+lag en variabel på toppen:
+
+var coins = 0
+
+Åpne Level1 scenen
+Legg til en Node2D node
+rename til Coins
+Lenk inn en Coin scene og plasser den i scenen
+
+Test spillet 
+skrives det et tall i konsollet
+hver gang du kolliderer med mynten?
+
+La oss lage en kul effekt når vi treffer en mynt:
+
+Gå til Coin scenen
+Aktiver Coin i hierarkiet
++ node animation, AnimationPlayer
+
+Forklar "Key Frame Animation"
+
+Fortsett ...
+
+La oss oppdatere GUI:
+
+
+
+
+
