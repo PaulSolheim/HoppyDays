@@ -788,15 +788,104 @@ La oss lage en kul effekt når vi treffer en mynt:
 
 Gå til Coin scenen
 Aktiver Coin i hierarkiet
-+ node animation, AnimationPlayer
++ node animation, velg AnimationPlayer
 
 Forklar "Key Frame Animation"
 
-Fortsett ...
+Aktiver AnimationPlayer
+Lag ny Animation kall den "die"
+Aktiver Coin
+Velg kun "Scale" fra ikoner på toppen
+Klikk "insert Key" ikonet på toppen
+sett Length til 0.5 (s)
+zoom inn
+velg 0.2 sekunder
+endre Transform.scale til 1.5 og 1.5 på Coin
+Trykk key-ikonet ved siden av scale
+velg 0.5 sekunder
+endre scale til 0.1 og 0.1 på Coin
+Trykk key-ikonet ved siden av scale
+Skru på Playing på Coin og spill die animasjonen
+Flytt die animasjonen til begynnelsen
+
+Gå tilbake til skriptet:
+
+legg til i 
+func _on_Area2D_body_entered():
+	..
+	$AnimationPlayer.play("die")
+
+lag:
+func die():
+	queue_free()
+	
+La oss kalle funksjonen fra AnimationPlayer
+Gå til 2D
+Lag et nytt track, klikk på + ikonet
+velg "add call function"
+velg Coin i vinduet og trykk OK knappen
+velg 0.5 (s)
+Add Keyframe (+)
+Klikk "edit keyframe" ikonet (nede lengst til høyre)
+i Name feltet skriv: die
+(som er navnet på funksjonen)
+
+Test spillet - Får du animasjonen og forsvinner mynten?
+
+Utfordring:
+	Plasser masse mynter i scenen så Bunny kan bli rik!
 
 La oss oppdatere GUI:
+Åpne GUI scenen
+Velg Skriptet
 
+Oppdater update_GUI() funksjonen
+legg til coins som parameter foran lives
+legg til en ny linje:
+	$Banner/HBoxContainer/CoinCount.text = str(coins)
 
+Åpne GameState skriptet
+Endre Update_GUI() funksjonen så den blir:
+	Global.GUI.update_GUI(coins, lives)
+	
+legg til en linje i coin_up() funksjonen
+	update_GUI()
 
+La oss la Bunny få et nytt liv hver gang
+hun har samlet 10 nye mynter:
 
+Legg til en ny export variabel på toppen
+av GameState skriptet:
 
+export var coin_target = 10
+
+Vi skal bruke rest ved divisjon
+for å finne ut om vi skal få et nytt liv
+(hvis det kan deles på 10 uten rest får vi nytt liv)
+
+func coin_up():
+	..
+	var multiple_of_coin_target = (coins % coin_target) == 0
+	if multiple_of_coin_target:
+		life_up()
+
+func life_up():
+	lives += 1
+	update_GUI()
+	
+Test spillet:
+	Får du samlet mynter?
+	Får du et nytt liv ved 10/20.. mynter?
+
+Neste Gang:
+	Legge til lyder
+	Lage Jump Pads
+	Legge til SpikeMan
+
+Hva kan gjøre spillet enda kulere?:
+	Legge til Skyer?
+	Legge til Portal ved slutten av Level1
+	Legge inn flere Levels?
+	Legge til hjelm som beskytter mot SpikesBottom?
+	Legge til BossFight?
+	
