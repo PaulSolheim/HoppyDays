@@ -877,6 +877,86 @@ Test spillet:
 	Får du samlet mynter?
 	Får du et nytt liv ved 10/20.. mynter?
 
+(Finpuss av GUI)
+Åpne GUI scenen - Velg 2D
+Aktiver GUI i Scenen
+Klikk + ikonet
+skriv anim - velg AnimationPlayer
+lag en ny animasjon - gi den navnet "CoinPulse"
+sett lengden til 0.2 sekunder
+velg CoinIcon i scenen
+under Rect - Scale, trykk key-ikonet
+zoom inn (scroll hjulet)
+velg slutten av animasjonen, trykk key-ikonet
+nå har vi fått 2 key-frames med størrelse 1
+velg 0.1 sekunder (i midten)
+forandre Scale til 1.5 1.5 og trykk key-ikonet
+
+Lag en ny animasjon (new ikonet)
+gi den navnet "LifePulse"
+velg LifeIcon i scenen
+sett lengden til 0.2 sekunder
+under Rect - Scale, trykk key-ikonet
+zoom inn (scroll hjulet)
+velg slutten av animasjonen, trykk key-ikonet
+nå har vi fått 2 key-frames med størrelse 1
+velg 0.1 sekunder (i midten)
+forandre Scale til 1.5 1.5 og trykk key-ikonet
+
+Lag en ny animasjon (new ikonet)
+gi den navnet "Hurt"
+velg LifeIcon i scenen
+sett lengden til 0.2 sekunder
+Velg Visibility - Modulate, trykk key-ikonet
+velg slutten av animasjonen, trykk key-ikonet
+nå har vi fått 2 key-frames
+velg 0.1 sekunder (i midten)
+forandre Modulate til Rødfarge
+
+Gå til GUI skriptet
+Lag en ny funskjon:
+
+func animate(animation):
+	$AnimationPlayer.play(animation)
+
+Åpne GameState skriptet og legg til:
+
+onready var GUI = Global.GUI
+(onready når vi bruker en node i en variabel)
+
+bruk GUI variabelen i skriptet istedenfor Global.GUI
+
+func animate_GUI(animation):
+	GUI.animate(animation)
+
+Legg til kall til funksjonen fra:
+coin_up()
+life_up()
+og hurt()
+etter update_GUI() linja
+
+func coin_up():
+	..
+	update_GUI()
+	animate_GUI("CoinPulse")
+	..
+
+func life_up():
+	..
+	update_GUI()
+	animate_GUI("LifePulse")
+
+func hurt():
+	..
+	update_GUI()
+	animate_GUI("Hurt")
+	..
+
+(viktig at navnet er helt likt som i scenen!)
+
+Test Spillet - Får du animasjoner når du skal?
+
+
 Neste Gang:
 	Legge til lyder
 	Lage Jump Pads
