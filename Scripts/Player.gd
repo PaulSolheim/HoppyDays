@@ -5,6 +5,7 @@ export var world_limit = 3000
 const SPEED = 750
 const GRAVITY = 3600
 const JUMP_SPEED = -1800
+const JUMP_BOOST = 2
 const UP = Vector2(0,-1)
 
 var motion = Vector2()
@@ -34,7 +35,8 @@ func fall(delta):
 		motion.y += GRAVITY * delta
 	if position.y > world_limit:
 		Global.GameState.end_game()
-		
+	
+	motion.y = clamp(motion.y,(JUMP_SPEED * JUMP_BOOST), -JUMP_SPEED)
 
 func run():
 	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):

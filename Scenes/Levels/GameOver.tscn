@@ -21,7 +21,7 @@ use_filter = false
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="GameOver" type="Control" index="0"]
+[node name="GameOver" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -71,10 +71,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 87.0
-margin_top = 200.0
-margin_right = 937.0
-margin_bottom = 400.0
+margin_left = 535.0
+margin_top = 440.0
+margin_right = 1385.0
+margin_bottom = 640.0
 rect_min_size = Vector2( 400, 200 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -96,10 +96,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 306.0
-margin_top = 424.0
-margin_right = 389.0
-margin_bottom = 529.0
+margin_left = 699.0
+margin_top = 665.0
+margin_right = 782.0
+margin_bottom = 770.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2

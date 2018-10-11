@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/GameState.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Camera2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Platforms.tres" type="TileSet" id=4]
+[ext_resource path="res://Scenes/SpikesTop.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/SpikesBottom.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Portal.tscn" type="PackedScene" id=8]
+
+[node name="Level1" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+starting_lives = 3
+coin_target = 10
+
+[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 186.325, 213.848 )
+
+[node name="Camera2D" parent="Player" index="2" instance=ExtResource( 3 )]
+
+zoom = Vector2( 1.2, 1.2 )
+limit_left = 0
+limit_bottom = 3000
+smoothing_enabled = true
+_sections_unfolded = [ "Limit", "Smoothing" ]
+
+[node name="TileMap" type="TileMap" parent="." index="1"]
+
+mode = 0
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 2
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -786392, 2, 0, -720873, 6, 0, -524253, 6, 0, -393211, 6, 0, -393200, 2, 0, -393164, 6, 0, -262115, 6, 0, -131062, 6, 0, -131030, 2, 0, -65514, 6, 0, 131079, 6, 0, 131107, 6, 0, 393237, 2, 0, 393264, 6, 0, 458753, 2, 0, 589855, 6, 0, 589887, 0, 0, 720949, 5, 0, 851979, 1, 0, 852007, 1, 0, 917532, 5, 0, 983098, 5, 0, 1179695, 1, 0, 1245192, 6, 0, 1245219, 5, 0, 1310741, 1, 0 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="Spikes" type="Node2D" parent="." index="2"]
+
+editor/display_folded = true
+
+[node name="SpikesTop" parent="Spikes" index="0" instance=ExtResource( 5 )]
+
+position = Vector2( 1591.38, 358.3 )
+
+[node name="SpikesTop2" parent="Spikes" index="1" instance=ExtResource( 5 )]
+
+position = Vector2( 1960.84, -281.162 )
+
+[node name="SpikesTop4" parent="Spikes" index="2" instance=ExtResource( 5 )]
+
+position = Vector2( 997.023, 808.729 )
+
+[node name="SpikesTop3" parent="Spikes" index="3" instance=ExtResource( 5 )]
+
+position = Vector2( 2123.68, 550.289 )
+
+[node name="SpikesBottom" parent="Spikes" index="4" instance=ExtResource( 6 )]
+
+position = Vector2( 427.239, -260.322 )
+
+[node name="SpikesBottom2" parent="Spikes" index="5" instance=ExtResource( 6 )]
+
+position = Vector2( 2368.35, -388.824 )
+
+[node name="Coins" type="Node2D" parent="." index="3"]
+
+editor/display_folded = true
+
+[node name="Coin" parent="Coins" index="0" instance=ExtResource( 7 )]
+
+position = Vector2( 332.154, -722.284 )
+frame = 1
+
+[node name="Coin8" parent="Coins" index="1" instance=ExtResource( 7 )]
+
+position = Vector2( 1030.69, -830.464 )
+frame = 1
+
+[node name="Coin2" parent="Coins" index="2" instance=ExtResource( 7 )]
+
+position = Vector2( 418.698, -805.737 )
+frame = 1
+
+[node name="Coin5" parent="Coins" index="3" instance=ExtResource( 7 )]
+
+position = Vector2( 1117.23, -913.917 )
+frame = 1
+
+[node name="Coin3" parent="Coins" index="4" instance=ExtResource( 7 )]
+
+position = Vector2( 505.242, -740.829 )
+frame = 1
+
+[node name="Coin7" parent="Coins" index="5" instance=ExtResource( 7 )]
+
+position = Vector2( 1203.78, -849.009 )
+frame = 1
+
+[node name="Coin4" parent="Coins" index="6" instance=ExtResource( 7 )]
+
+position = Vector2( 585.605, -651.194 )
+frame = 1
+
+[node name="Coin6" parent="Coins" index="7" instance=ExtResource( 7 )]
+
+position = Vector2( 1284.14, -759.374 )
+frame = 1
+
+[node name="Portal" parent="." index="4" instance=ExtResource( 8 )]
+
+position = Vector2( 4249.09, 431.639 )
+
+[connection signal="body_entered" from="Portal" to="." method="_on_Portal_body_entered"]
+
+

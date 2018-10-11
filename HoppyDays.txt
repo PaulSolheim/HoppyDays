@@ -842,7 +842,7 @@ Velg Skriptet
 Oppdater update_GUI() funksjonen
 legg til coins som parameter foran lives
 legg til en ny linje:
-	$Banner/HBoxContainer/CoinCount.text = str(coins)
+	$Banner/HBoxContainer/Coin/CoinCount.text = str(coins)
 
 Åpne GameState skriptet
 Endre Update_GUI() funksjonen så den blir:
@@ -956,9 +956,101 @@ func hurt():
 
 Test Spillet - Får du animasjoner når du skal?
 
+Har også fikset Coin bug 
+(det var mulig å ta coin flere ganger)
+
+HIT 6. Gang
+
+La oss legge til lyder!
+
+Åpne Level1 scenen
+Aktiver Level1 noden
++ ikonet får å legge til en node
+velg Node2D, rename til "Sounds"
++ ikonet skriv audio
+velg AudioStreamPlayer, rename til "Music"
+Velg en av disse fra SFX mappa:
+Chiptune_Adventures_1.ogg
+Summer_Park.ogg
+Dra over til Stream egenskapen
+Test ved å skru på Playing egenskapen
+
+Skru på AutoPlay egenskapen
+Juster Volume Db f.eks. til -10
+
+Test Spillet - Får du bakgrunnsmusikk?
+
+Aktiver Sounds i scenen
++ ikonet, skriv audio
+velg AudioStreamPlayer, rename til "Jump_SFX"
+Dra Jump_1.ogg til Stream egenskapen
+Juster Volume Db f.eks. til -10
+Legg til et skript (skript ikonet)
+Velg Scripts mappa, Lagre-knapp
+Lag-Knapp
+
+Åpne Global skriptet
+Legg til en variabel for skriptet:
+var jump_sfx
+
+Gå tilbake til jump_SFX skriptet
+Fjern pass fra ready() funksjonen
+og legg inn:
+
+func _ready():
+	Global.jump_sfx = self
+
+Legg til en AudioStreamPlayer under Sounds:
+Pain_SFX
+
+Dra pain.ogg til Stream
+Juster Volume Db til -10
+
+Åpne Global skriptet og legg til:
+var pain_sfx
+
+Gå tilbake til 2D
+Legg til Skript
+(husk å velge Scripts mappa)
+
+func _onready():
+	Global.pain_sfx = self
+
+Åpne Player skriptet
+Legg til i jump funksjonen:
+		Global.jump_sfx.play()
+
+Åpne GameState skriptet
+Legg til i hurt() funksjonen:
+
+func hurt():
+	..
+	Global.pain_sfx.play()
+	if lives < 0:
+		end_game()
+
+Åpne Coin scenen
+Legg til en AudioStreamPlayer node (+)
+Dra Coin_SFX til Stream egenskapen
+
+Gå til skript
+Legg til i _on_Area2D_body_entered(body)
+	..
+	$AudioStreamPlayer.play()
+
+Test Spillet - Får du alle lydene?
+Juster Volume Db på lydene så du blir fornøyd.
+
+Hvis du vil lage dine egne lyder
+så er denne websiden kul:
+https://jfxr.frozenfractal.com/
+
+Lagt inn Victory og Portal scener.
+
+Skal koble fra GameState som singleton.
+Klargjøre til Global.next_level().
 
 Neste Gang:
-	Legge til lyder
 	Lage Jump Pads
 	Legge til SpikeMan
 
