@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/SpikesBottom.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Hazards.gd" type="Script" id=1]
 [ext_resource path="res://GFX/Environment/spikes_bottom.png" type="Texture" id=2]
 
-[node name="SpikesBottom" type="Area2D"]
+[node name="SpikesBottom" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -31,6 +31,6 @@ visible = false
 build_mode = 0
 polygon = PoolVector2Array( -47.0306, -27.1072, -33.3276, 26.1238, 33.0794, 26.6508, 46.7824, -26.8437 )
 
-[connection signal="body_entered" from="." to="." method="_on_SpikesBottom_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Hazard_body_entered"]
 
 

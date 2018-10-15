@@ -965,8 +965,6 @@ La oss legge til lyder!
 
 Åpne Level1 scenen
 Aktiver Level1 noden
-+ ikonet får å legge til en node
-velg Node2D, rename til "Sounds"
 + ikonet skriv audio
 velg AudioStreamPlayer, rename til "Music"
 Velg en av disse fra SFX mappa:
@@ -979,55 +977,35 @@ Skru på AutoPlay egenskapen
 Juster Volume Db f.eks. til -10
 
 Test Spillet - Får du bakgrunnsmusikk?
+Jeg har lagt inn musikk på Level2 scenen,
+jeg valgte "Summer_Park", bytt ut hvis du vil.
 
-Aktiver Sounds i scenen
-+ ikonet, skriv audio
-velg AudioStreamPlayer, rename til "Jump_SFX"
+La oss legge til lyder ved jump, hurt og coin!
+
+Åpne Player scenen
++ Node, Velg AudioStreamPlayer
+rename til "Jump_SFX"
 Dra Jump_1.ogg til Stream egenskapen
-Juster Volume Db f.eks. til -10
-Legg til et skript (skript ikonet)
-Velg Scripts mappa, Lagre-knapp
-Lag-Knapp
 
-Åpne Global skriptet
-Legg til en variabel for skriptet:
-var jump_sfx
+Gå til Player skriptet og legg til
 
-Gå tilbake til jump_SFX skriptet
-Fjern pass fra ready() funksjonen
-og legg inn:
+func jump():
+	if ..
+		..
+		$Jump_SFX.play()
 
-func _ready():
-	Global.jump_sfx = self
+Aktiver Player i scenen
++ Node, Velg AudioStreamPlayer
+rename til "Pain_SFX"
+Dra pain.ogg til Stream egenskapen
 
-Legg til en AudioStreamPlayer under Sounds:
-Pain_SFX
-
-Dra pain.ogg til Stream
-Juster Volume Db til -10
-
-Åpne Global skriptet og legg til:
-var pain_sfx
-
-Gå tilbake til 2D
-Legg til Skript
-(husk å velge Scripts mappa)
-
-func _onready():
-	Global.pain_sfx = self
-
-Åpne Player skriptet
-Legg til i jump funksjonen:
-		Global.jump_sfx.play()
-
-Åpne GameState skriptet
-Legg til i hurt() funksjonen:
+Gå til Player skriptet og legg til
 
 func hurt():
 	..
-	Global.pain_sfx.play()
-	if lives < 0:
-		end_game()
+	$Pain_SFX.play()
+
+Test Spillet - Får du lyder når du hopper og mister liv?
 
 Åpne Coin scenen
 Legg til en AudioStreamPlayer node (+)
@@ -1045,19 +1023,150 @@ Hvis du vil lage dine egne lyder
 så er denne websiden kul:
 https://jfxr.frozenfractal.com/
 
-Lagt inn Victory og Portal scener.
+Jeg har lagt inn Victory og Portal scener.
+Jeg har koblet GameState bort fra scenen
+og lagt den til som auto_load i prosjektinnstillinger som singleton.
 
-Skal koble fra GameState som singleton.
-Klargjøre til Global.next_level().
+La oss legge til Jump Pads!
 
-Neste Gang:
-	Lage Jump Pads
-	Legge til SpikeMan
+Lag en ny scene
++ node, velg Area2D
+rename til JumpPad
++ node, velg AnimatedSprite
+klikk Frames <null>
+velg "new SpriteFrames"
+klikk på SpriteFrames for å få frem Animations
+rename "default" til "idle"
+Gå til "GFX/Items" mappa
+Dra inn:
+spring_in og spring
+endre speed til 2 FPS (frames pr second)
+
+Aktiver JumpPad i scenen
++ node, velg CollisionShape2D
+Velg "new RectangleShape2D" for Shape
+tilpass til jumpPad ved å dra i de innerste punktene
+klikk på "øyet" for CollisonShape2D for å gjøre
+kollisjonssonen usynlig
+Aktiver JumpPad i scenen
+Klikk ikonet for at "objektets barn ikke er valgbare"
+Klikk Collison/Layer
+velg "Pickups"
+sjekk at Collision/Mask er satt til Player
+Aktiver AnimatedSprite i scenen
+lag en ny animasjon
+kall den "spring"
+dra spring_out til animasjonen
+
+Aktiver JumpPad i scenen
++ node, velg "Timer"
+sett Wait Time til 1.5 (sekunder)
+Aktiver One Shot egenskapen
+
+Lag et nytt skript for JumpPad
+husk å velge scripts mappa
+Trykk på knappene så du får frem skriptet
+
+Fjern _ready() funksjonen og pass
+Gå til node tabben for JumpPad
+Velg "body_entered" hendelsen
+Klikk "Koble til" knappen
+Velg JumpPad (default)
+"Koble til" knappen en gang til
+
+Velg Timer i scenen
+gå til node-tabben
+velg "Timeout" hendelsen
+Klikk "Koble til" knappen
+Velg JumpPad (default)
+"Koble til" knappen en gang til
+
+Skriv hva som skal skje i funksjonene:
+func _on_JumpPad_body_entered(body):
+	$AnimatedSprite.play("spring")
+	$Timer.start()
+
+func _on_Timer_timeout():
+	$AnimatedSprite.play("idle")
+
+Lagre Scenen
+Husk å lagre i Scenes mappa
+
+Åpne Player skriptet
+Lag en ny funksjon:
+
+func boost():
+	motion.y = JUMP_SPEED * JUMP_BOOST
+
+Gå tilbake til JumpPad skriptet,
+la oss legge til kall til boost() funksjonen
+til slutt i kollisjons-funksjonen:
+
+func _on_JumpPad_body_entered(body):
+	..
+	Global.Player.boost()
+
+Velg AnimationPlayer i scenen
+Sett Animation til "idle"
+Sett Playing til "On"
+
+Ctrl-S for å lagre scenen.
+
+Åpne Level1 scenen
++ Node, velg Node2D
+rename til "JumpPads"
+Legg til en JumpPad i scenen
+
+Test spillet - Hopper du høyt?
+
+Utfordring:
+Legg til flere JumpPads så det blir kult!
+Fjern og flytt Tiles så du får skikkelig
+nytte av jumpPads'ene
+
+La oss legge til noen SpikeMen?
+Jeg har jukset litt og lagt inn en scene
+som heter SpikeMan med skript for kollisjoner.
+
+Det eneste du trenger å gjøre er å plassere
+SpikeMan på forskjellige steder i Level1 og Level2
+så spillet blir passe vanskelig!
+Lenk inn SpikeMan under NPCs nodene i begge scenene.
+
+Test Spillet - Juster og Test på nytt,
+Fortsett til Spillet blir passe vanskelig!
+
+Alt er nå klart for at du kan legge til
+så mange levels som du vil!
+For å legge til et nytt Level:
+Åpne Et Level du vil bruke som utgangspunkt
+Velg fra Menyen:
+	Scene - Lagre Scene som
+	Gi den navnet du vil den skal ha
+	(husk å lagre scenen i Scenes/Levels mappa)
+
+Ta opp Global skriptet
+Legg til en ny linje i _ready() funksjonen
+	Levels.append("")
+med stien til den nye scenen du la til.
+(du kan kopiere stien med høyreklikk på scenen i scenes/levels mappa)
+
+Lag det nye scenen din kul!
+Slett, Flytt og Legg til så det blir passe vanskelig!
+
+Utfordring:
+La noen andre spille spillet ditt,
+Hva synes de?, still spørsmål, lytt og juster spillet!
+
+Nå setter vi strek for HoppyDays på Kodeklubben,
+jobb videre med spillet og vis det frem når du vil!
+Jeg hjelper gjerne til hvis du står fast.
 
 Hva kan gjøre spillet enda kulere?:
 	Legge til Skyer?
-	Legge til Portal ved slutten av Level1
-	Legge inn flere Levels?
 	Legge til hjelm som beskytter mot SpikesBottom?
 	Legge til BossFight?
-	
+	Legge til Andre fiender (romskip?, dyr?)
+	Lage et nytt TileMap med andre plattformer?
+	Lage en skummel bakgrunn på noen scener?
+	Lage noe som eksploderer?

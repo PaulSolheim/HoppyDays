@@ -1,17 +1,15 @@
-extends Node2D
+extends Node
 
 export var starting_lives = 3
 export var coin_target = 10
 
-onready var GUI = Global.GUI
-
 var lives
 var coins = 0
+var level = 0
 
 func _ready():
 	Global.GameState = self
-	lives = starting_lives
-	update_GUI()
+	start_game()
 
 func coin_up():
 	coins += 1
@@ -35,14 +33,26 @@ func hurt():
 		end_game()
 
 func update_GUI():
-	GUI.update_GUI(coins, lives)
+	Global.GUI.update_GUI(coins, lives)
 
 func animate_GUI(animation):
-	GUI.animate(animation)
+	Global.GUI.animate(animation)
+
+func start_game():
+	lives = starting_lives
+	coins = 0
+	level = 0
+	get_tree().change_scene(Global.Levels[level])
+
+func next_level():
+	level += 1
+	if (level >= Global.Levels.size()):
+		victory()
+	else:
+		get_tree().change_scene(Global.Levels[level])
 
 func end_game():
 	get_tree().change_scene(Global.GameOver)
 
-
-func _on_Portal_body_entered(body):
-	get_tree().change_scene(Global.Level2)
+func victory():
+	get_tree().change_scene(Global.Victory)

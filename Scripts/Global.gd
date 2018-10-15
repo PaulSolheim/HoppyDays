@@ -5,8 +5,12 @@ var Player
 var GUI
 
 # Scene locations - MUST be set MANUALLY
-var Level1 = "res://Scenes/Levels/Level1.tscn"
-var Level2 = "res://Scenes/Levels/Level2.tscn"
 var GameOver = "res://Scenes/Levels/GameOver.tscn"
 var Victory = "res://Scenes/Levels/Victory.tscn"
 var Lightning = ""
+var Levels = []
+
+func _ready():
+	Levels.append("res://Scenes/Levels/Level1.tscn")
+	Levels.append("res://Scenes/Levels/Level2.tscn")
+	
