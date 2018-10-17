@@ -1136,6 +1136,14 @@ Lenk inn SpikeMan under NPCs nodene i begge scenene.
 Test Spillet - Juster og Test på nytt,
 Fortsett til Spillet blir passe vanskelig!
 
+Jeg har også lagt inn Cloud og SpaceShip scener.
+Cloud sender lyn når den oppdager Bunny rett under seg.
+SpaceShip skyter missiler når Bunny er rett under den.
+SpaceShip skyter litt oftere og missilene går fortere.
+
+Ta opp Level2 og legg til noen Clouds.
+SpaceShip kan du kanskje bruke på ekstra Levels.
+
 Alt er nå klart for at du kan legge til
 så mange levels som du vil!
 For å legge til et nytt Level:
@@ -1163,10 +1171,9 @@ jobb videre med spillet og vis det frem når du vil!
 Jeg hjelper gjerne til hvis du står fast.
 
 Hva kan gjøre spillet enda kulere?:
-	Legge til Skyer?
 	Legge til hjelm som beskytter mot SpikesBottom?
 	Legge til BossFight?
-	Legge til Andre fiender (romskip?, dyr?)
+	Legge til andre fiender (farlige dyr?)
 	Lage et nytt TileMap med andre plattformer?
 	Lage en skummel bakgrunn på noen scener?
-	Lage noe som eksploderer?
+	Få missilene til å eksploderer?
