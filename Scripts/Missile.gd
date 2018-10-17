@@ -19,5 +19,6 @@ func manage_collision():
 	var collider = get_overlapping_bodies()
 	for object in collider:
 		if object == Global.Player:
+			$AnimatedSprite.play("explosion")
 			Global.GameState.hurt()
 		queue_free()
