@@ -49,9 +49,17 @@ func run():
 func jump():
 	if is_on_floor() and Input.is_action_pressed("ui_up"):
 		motion.y = JUMP_SPEED
-		
+		$Jump_SFX.play()
 
 func hurt():
 	motion.y = JUMP_SPEED
-	
+	$Pain_SFX.play()
+
+func boost():
+	motion.y = JUMP_SPEED * JUMP_BOOST
+
+
+
+
+
 

@@ -1119,6 +1119,8 @@ Legg til en JumpPad i scenen
 
 Test spillet - Hopper du høyt?
 
+HIT - 7. Gang
+
 Utfordring:
 Legg til flere JumpPads så det blir kult!
 Fjern og flytt Tiles så du får skikkelig
