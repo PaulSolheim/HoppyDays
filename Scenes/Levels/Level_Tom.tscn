@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Camera2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Portal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SFX/Summer_Park.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Platforms.tres" type="TileSet" id=6]
+
+[node name="Level_Tom" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 116.018, 562.611 )
+
+[node name="Camera2D" parent="Player" index="2" instance=ExtResource( 3 )]
+
+zoom = Vector2( 1.2, 1.2 )
+limit_left = 0
+limit_bottom = 3000
+smoothing_enabled = true
+_sections_unfolded = [ "Limit", "Smoothing" ]
+
+[node name="Portal" parent="." index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 6039.87, 396.525 )
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 5 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+[node name="TileMap" type="TileMap" parent="." index="3"]
+
+mode = 0
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 458762, 0, 0, 917504, 0, 0, 917521, 0, 0, 1310743, 0, 0, 1376279, 0, 0 )
+
+[connection signal="body_entered" from="Portal" to="." method="_on_Portal_body_entered"]
+
+

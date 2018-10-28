@@ -14,4 +14,5 @@ var Levels = []
 func _ready():
 	Levels.append("res://Scenes/Levels/Level1.tscn")
 	Levels.append("res://Scenes/Levels/Level2.tscn")
+	Levels.append("res://Scenes/Levels/Level_Tom.tscn")
 	
