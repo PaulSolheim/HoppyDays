@@ -23,10 +23,19 @@ func update_motion(delta):
 	move_and_slide(motion, UP)
 
 func _process(delta):
-	update_animation(motion)
+	animate()
 
-func update_animation(motion):
-	$AnimatedSprite.update(motion)
+func animate():
+	if motion.y < 0:
+		$AnimatedSprite.play("jump")
+	elif motion.x > 0:
+		$AnimatedSprite.play("run")
+		$AnimatedSprite.flip_h = false
+	elif motion.x < 0:
+		$AnimatedSprite.play("run")
+		$AnimatedSprite.flip_h = true
+	else:
+		$AnimatedSprite.play("idle")
 
 func fall(delta):
 	if is_on_floor() or is_on_ceiling():
